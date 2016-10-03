@@ -355,7 +355,7 @@ blacksm INFO  config: /tmp/blacksmith-output/2016-09-21-202036-zlib-linux-x64-st
 Blacksmith will generate the tarball with the built component in the `artifacts` folder.
 
 ## Build a component and its dependencies
-There are components that depend on others to be able to build. For example, **Nginx** webserver requires `zlib`, `pcre` and `openssl` in order to be built.
+There are components that depend on others to be able to build. For example, the [Nginx webserver](http://nginx.org/) requires `zlib`, `pcre` and `openssl` in order to be built. For more information check the document ["Building nginx from Sources"](http://nginx.org/en/docs/configure.html).
 
 First of all, obtain the source code and the `metadata.json` and `index.js` (recipe) files for every component:
 
