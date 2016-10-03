@@ -101,7 +101,7 @@ Find more information about Blacksmith features in the [Blacksmith user guide](.
 ## Licensing
 Blacksmith is licensed under the GPL, Version 2.0
 
-See the COPYING file for the full license text.
+See the [COPYING](./COPYING) file for the full license text.
 
 ## Contributing
 Before submitting a pull request, please make sure the following is done:
