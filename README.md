@@ -85,7 +85,7 @@ module.exports = Zlib;
 Configure the Blacksmith default paths to the recipe, if not already configured in `config.json`, and then call the actual compilation command:
 
 ```
-$> blacksmith configure path.recipes /tmp/blacksmith-recipes/
+$> blacksmith configure paths.recipes /tmp/blacksmith-recipes/
 $> blacksmith containerized-build zlib@1.2.8:/tmp/tarballs/zlib-1.2.8.tar.gz
 blacksm INFO  Preparing build environment
 [...]
