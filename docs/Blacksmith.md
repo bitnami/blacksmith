@@ -340,7 +340,7 @@ module.exports = Zlib;
 We need to configure the Blacksmith default paths to the recipe and the source tarball (if not already configured in `config.json`) and then call the actual compilation command:
 
 ```
-$> blacksmith configure path.recipes /tmp/blacksmith-recipes/
+$> blacksmith configure paths.recipes /tmp/blacksmith-recipes/
 $> blacksmith containerized-build zlib:/tmp/tarballs/zlib-1.2.8
 blacksm INFO  Preparing build environment
 [...]
@@ -500,7 +500,7 @@ module.exports = Nginx;
 We need to configure the Blacksmith default paths to the recipe and the source tarball (if not already configured in `config.json`) and then call the actual compilation command:
 
 ```
-$> blacksmith configure path.recipes /tmp/blacksmith-recipes/
+$> blacksmith configure paths.recipes /tmp/blacksmith-recipes/
 $> blacksmith containerized-build zlib:/tmp/tarballs/zlib-1.2.8.tar.gz pcre:/tmp/tarballs/pcre-8.31.tar.gz openssl:/tmp/tarballs/openssl-1.0.2i.tar.gz nginx:/tmp/tarballs/nginx-1.10.1.tar.gz
 ```
 
