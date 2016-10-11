@@ -1,13 +1,13 @@
 {
   "name": "blacksmith",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Bitnami Blacksmith System",
   "main": "index.js",
   "engines": {
     "node": "~6"
   },
   "dependencies": {
-    "blacksmith-containerized-build-command": "bitnami/blacksmith-containerized-build#v0.0.17",
+    "blacksmith-containerized-build-command": "bitnami/blacksmith-containerized-build#v0.0.18",
     "blacksmith-base-components": "bitnami/blacksmith-base-components#v0.0.8",
     "blacksmith-extra-component-types": "bitnami/blacksmith-extra-component-types#v0.0.3",
     "nami-utils": "^0.1.0",
