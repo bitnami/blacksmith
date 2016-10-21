@@ -13,7 +13,7 @@ const configFile = path.join(__dirname, '../config.json');
 
 
 describe('#configure', function() {
-  this.timeout(10000);
+  this.timeout(20000);
   beforeEach(() => spawnSync('cp', [configFile, `${configFile}.bk`]));
   afterEach(() => spawnSync('mv', [`${configFile}.bk`, configFile]));
   it('Throw error when called with wrong arguments', function() {
