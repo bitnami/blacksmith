@@ -13,7 +13,7 @@
     "blacksmith-extra-component-types": "bitnami/blacksmith-extra-component-types#v0.0.6",
     "nami-utils": "^0.1.0",
     "cmd-parser": "^0.0.1",
-    "blacksmith-core": "bitnami/blacksmith-core#v0.0.26",
+    "blacksmith-core": "bitnami/blacksmith-core#v0.0.27",
     "common-utils": "bitnami/node-common-utils#v2.0.2",
     "version-utils": "bitnami/node-version-utils#v2.0.0"
   },
