@@ -86,6 +86,16 @@ describe('FSTracker', () => {
     expect(spawnSync('tar', ['-ztf', tarball]).stdout.toString()).to.contain('hello');
     expect(spawnSync('tar', ['-ztf', tarball]).stdout.toString()).to.not.contain('hello2');
   });
+  it('captures a selection of files with a relative path', () => {
+    const fstracker = new FileSystemTracker(testDir);
+    fstracker.init();
+    fs.writeFileSync(path.join(testDir, 'hello'), 'hello');
+    fs.writeFileSync(path.join(testDir, 'hello2'), 'hello');
+    fstracker.commit();
+    const tarball = '/tmp/blacksmith-test-env/delta.tar.gz';
+    fstracker.captureDelta(tarball, {pick: 'hello', relativize: testDir});
+    expect(spawnSync('tar', ['-ztf', tarball]).stdout.toString()).to.be.eql('hello\n');
+  });
   it('excludes a selection of files', () => {
     const fstracker = new FileSystemTracker(testDir);
     fstracker.init();
