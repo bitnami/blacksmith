@@ -195,7 +195,7 @@ Example:
 }
 ```
 
-## Compilation Recipe
+## Compilation recipes
 
 This is the main file for defining the build steps that Blacksmith should follow. For doing so you need to implement and export a JavaScript class.
 
