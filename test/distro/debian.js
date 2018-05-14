@@ -54,17 +54,19 @@ describe('Debian', () => {
       .to.be.eql('apt-get install -y --no-install-recommends zlib openssl');
   });
   describe('returns a list of system packages given a list of files', () => {
-    it('using "file"', () => {
-      nos.isInPath.restore();
-      sinon.stub(nos, 'isInPath').callsFake(cmd => cmd === 'file');
-      const debian = new Debian('x64');
-      expect(debian.getRuntimePackages([path.join(__dirname, 'binary_sample')])).to.be.eql(['libc6']);
-    });
-    it('using "objdump"', () => {
-      nos.isInPath.restore();
-      sinon.stub(nos, 'isInPath').callsFake(cmd => cmd === 'objdump');
-      const debian = new Debian('x64');
-      expect(debian.getRuntimePackages([path.join(__dirname, 'binary_sample')])).to.be.eql(['libc6']);
+    ['x64', 'amd64'].forEach(arch => {
+        it(`[${arch}] using "file"`, () => {
+          nos.isInPath.restore();
+          sinon.stub(nos, 'isInPath').callsFake(cmd => cmd === 'file');
+          const debian = new Debian(arch);
+          expect(debian.getRuntimePackages([path.join(__dirname, 'binary_sample')])).to.be.eql(['libc6']);
+        });
+        it(`[${arch}] using "objdump"`, () => {
+          nos.isInPath.restore();
+          sinon.stub(nos, 'isInPath').callsFake(cmd => cmd === 'objdump');
+          const debian = new Debian(arch);
+          expect(debian.getRuntimePackages([path.join(__dirname, 'binary_sample')])).to.be.eql(['libc6']);
+        });
     });
   });
   it('returns a list of system packages installed', () => {
