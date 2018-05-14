@@ -88,7 +88,7 @@ class Zlib extends Library {
   }
 }
 
-module.exports = zlib;
+module.exports = Zlib;
 ```
 
 #### Configuring Blacksmith
