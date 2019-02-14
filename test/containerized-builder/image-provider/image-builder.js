@@ -41,7 +41,7 @@ describe('ImageBuilder', () => {
       expect(nfile.read(nfile.join(buildDir, 'Dockerfile'))).to.be.eql(
         `FROM test-image\n` +
         `RUN yum update -y\n` +
-        `RUN yum install -y zlib\n` +
+        `RUN yum --setopt=skip_missing_names_on_install=False install -y zlib\n` +
         `ENV PATH=$PATH:/test/bin\n` +
         `RUN install test\n`
       );

@@ -40,9 +40,9 @@ describe('Centos', () => {
   });
   it('provides an install command', () => {
     const centos = new Centos('x64');
-    expect(centos.installCommand('zlib')).to.be.eql('yum install -y zlib');
+    expect(centos.installCommand('zlib')).to.be.eql('yum --setopt=skip_missing_names_on_install=False install -y zlib');
     expect(centos.installCommand(['zlib', 'openssl']))
-      .to.be.eql('yum install -y zlib openssl');
+      .to.be.eql('yum --setopt=skip_missing_names_on_install=False install -y zlib openssl');
   });
   it('returns a list of system packages given a list of files', () => {
     const centos = new Centos('x64');
