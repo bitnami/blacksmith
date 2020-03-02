@@ -15,7 +15,7 @@
     "lodash": "^4.0.0",
     "nami-logger": "^0.0.1",
     "nami-utils": "^0.2.0",
-    "strftime": "^0.9.2",
+    "strftime": "^0.10.0",
     "tar": "^4.4.8",
     "tarball-utils": "bitnami/node-tarball-utils#v3.0.3",
     "version-utils": "bitnami/node-version-utils#v2.0.1"
