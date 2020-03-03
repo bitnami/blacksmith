@@ -24,7 +24,7 @@
     "anvil-client": "0.3.0"
   },
   "devDependencies": {
-    "bitnami-gulp-common-tasks": "bitnami/gulp-common-tasks#v2.0.4",
+    "bitnami-gulp-common-tasks": "bitnami/gulp-common-tasks#v2.1.3",
     "chai": "^4.2.0",
     "chai-fs": "git+https://github.com/bitnami/chai-fs.git",
     "chai-subset": "^1.1.0",
