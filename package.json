@@ -13,7 +13,7 @@
     "compilation-utils": "bitnami/node-compilation-utils#v1.0.4",
     "docker-utils": "bitnami/node-docker-utils#v3.3.0",
     "lodash": "^4.0.0",
-    "nami-logger": "^0.0.1",
+    "nami-logger": "^0.1.0",
     "nami-utils": "^0.2.0",
     "strftime": "^0.10.0",
     "tar": "^6.0.1",
