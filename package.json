@@ -1,13 +1,13 @@
 {
   "name": "blacksmith",
-  "version": "2.6.4",
+  "version": "2.6.5",
   "description": "Bitnami Blacksmith System",
   "main": "index.js",
   "engines": {
     "node": "~10"
   },
   "dependencies": {
-    "blacksmith-extra-component-types": "bitnami/blacksmith-extra-component-types#v0.0.52",
+    "blacksmith-extra-component-types": "bitnami/blacksmith-extra-component-types#v0.0.53",
     "cmd-parser": "^0.1.0",
     "common-utils": "bitnami/node-common-utils#v2.2.0",
     "compilation-utils": "bitnami/node-compilation-utils#v1.0.4",
