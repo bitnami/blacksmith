@@ -54,9 +54,9 @@ describe('Debian', () => {
   });
   it('provides an install command', () => {
     const debian = new Debian('x64');
-    expect(debian.installCommand('zlib')).to.be.eql('apt-get install -y --no-install-recommends zlib');
+    expect(debian.installCommand('zlib')).to.be.eql('DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends zlib');
     expect(debian.installCommand(['zlib', 'openssl']))
-      .to.be.eql('apt-get install -y --no-install-recommends zlib openssl');
+      .to.be.eql('DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends zlib openssl');
   });
   describe('returns a list of system packages given a list of files', () => {
     ['x64', 'amd64'].forEach(arch => {
