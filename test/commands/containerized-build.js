@@ -36,7 +36,7 @@ describe('#containerized-build()', function() {
     }).to.throw(
       `Unable to parse ${inputsFile}. Received:\n` +
       `Invalid JSON for the schema containerized-build:\n` +
-      `instance additionalProperty "a" exists in instance when not allowed\n` +
+      `instance is not allowed to have the additional property "a"\n` +
       `instance requires property "components"\n`
     );
   });

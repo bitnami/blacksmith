@@ -72,7 +72,7 @@ describe('ImageBuilder', () => {
       expect(nfile.read(nfile.join(buildDir, 'Dockerfile'))).to.be.eql(
         `FROM test-image\n` +
         `RUN apt-get update -y\n` +
-        `RUN apt-get install -y --no-install-recommends zlib\n` +
+        `RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends zlib\n` +
         `ENV PATH=$PATH:/test/bin\n` +
         `RUN install test\n`
       );
