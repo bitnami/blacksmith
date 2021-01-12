@@ -87,7 +87,7 @@ describe('Debian Lib Symlinked', () => {
       {name: 'libcurl3:amd64', version: '7.38.0-4+deb8u5'},
     ]);
   });
-  it('/usr/lib references are changed to */lib', () => {
+  it('/usr/lib and /lib references are changed to */lib', () => {
     const debian = new Debian('x64');
     const sampleRawOutput = `
     libcrypto.so.1.1 => /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 (0x00007f5d61d98000)
