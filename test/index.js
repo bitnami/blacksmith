@@ -27,6 +27,7 @@ describe('Base Components', () => {
 
 describe('Distributions', () => {
   importTest('./distro/debian');
+  importTest('./distro/debianlibsymlinked');
   importTest('./distro/centos');
   importTest('./distro');
 });
