@@ -96,5 +96,6 @@ describe('Debian Lib Symlinked', () => {
     const libInfo = debian._parseLibrariesInfo(sampleRawOutput);
     expect(libInfo.length).to.be.eql(2);
     expect(libInfo[0]).to.be.eql('*/lib/x86_64-linux-gnu/libcrypto.so.1.1');
+    expect(libInfo[1]).to.be.eql('*/lib/x86_64-linux-gnu/libpthread.so.0');
   });
 });
