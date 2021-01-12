@@ -1,13 +1,13 @@
 'use strict';
 
-const Debian = require('../../lib/distro/debiansymlinked');
+const Debian = require('../../lib/distro/debianlibsymlinked');
 const chai = require('chai');
 const expect = chai.expect;
 const nos = require('nami-utils').os;
 const path = require('path');
 const sinon = require('sinon');
 
-describe('Debian Symlinked', () => {
+describe('Debian Lib Symlinked', () => {
   beforeEach(() => {
     sinon.stub(nos, 'isInPath').callsFake(() => true);
     sinon.stub(nos, 'runProgram').callsFake((command, args, options) => {
