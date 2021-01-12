@@ -91,11 +91,11 @@ describe('Debian Lib Symlinked', () => {
     const debian = new Debian('x64');
     const sampleRawOutput = `
     libcrypto.so.1.1 => /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 (0x00007f5d61d98000)
-    libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f5d61d75000)
+    libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread-2.23.so(0x00007f5d61d75000)
     `;
     const libInfo = debian._parseLibrariesInfo(sampleRawOutput);
     expect(libInfo.length).to.be.eql(2);
     expect(libInfo[0]).to.be.eql('*/lib/x86_64-linux-gnu/libcrypto.so.1.1');
-    expect(libInfo[1]).to.be.eql('*/lib/x86_64-linux-gnu/libpthread.so.0');
+    expect(libInfo[1]).to.be.eql('*/lib/x86_64-linux-gnu/libpthread-2.23.so');
   });
 });
