@@ -8,11 +8,14 @@
   * [build](#build)
   * [containerized-build](#containerized-build)
   * [shell](#shell)
-* [Compilation recipes](#compilation-recipes)
+* [Build specifications](#build-specifications)
+  * [Compilation recipes](#compilation-recipes)
+  * [Build dependencies](#build-dependencies)
+  * [Extra compilation classes](#extra-compilation-classes)
+* [Artifacts output folder](#artifacts-output-folder)
 * [Examples](#examples)
   * [Building NGINX compiling its dependencies](#building-nginx-compiling-its-dependencies)
   * [Building NGINX using system packages](#building-nginx-using-system-packages)
-
 
 # Introduction
 
@@ -158,7 +161,7 @@ In order to build a set of components, Blacksmith needs a JSON file with minimum
 ## build-spec.json
 The `build-spec.json` file can contain:
 
-  * [platform] - (Optional) Object defining the target platform. If defined all the properties bellow should be defined as well.
+  * [platform] - (Optional) Object defining the target platform. If defined all the properties below should be defined as well.
   * [platform.os] - (Optional) Operative System. Default: 'linux'.
   * [platform.arch] - (Optional) Architecture of the platform. Default: 'x64'.
   * [platform.distro] - (Optional) Distribution of the platform. Default: 'debian'.
@@ -209,18 +212,18 @@ Blacksmith exposes several templates as Core Components so you don't need to imp
 
 All the classes will execute the following methods in order (they can be overridden or recalled with `super`):
 
-  * `initialize` -- Can be overridden. Will prepare environment variables and configuration options for the entire workflow
-  * `cleanup` -- Not need to override. Will remove files from previous builds if found
-  * `extract` -- Not need to override. Will extract the source tarball
-  * `copyExtraFiles` -- Not need to override. Will copy extra files defined in `stack.json` (explained at the end of the document)
-  * `patch` -- Not need to override. Will apply the patch specified in `stack.json` (explained at the end of the document)
-  * `postExtract` -- Can be overridden. Common tasks that execute after extract
-  * `build` -- Can be overridden. Contain build instructions
-  * `postBuild` -- Can be overridden. Common tasks that execute after the build
-  * `install` -- Can be overridden. Copy the compiled files to the right directory
-  * `fulfillLicenseRequirements` -- Not need to override. If the license information is defined it checks if it is available in the source code and copies it in the component prefix in order to be included in the resulting tarball
-  * `postInstall` -- Can be overridden. Common tasks that execute after the install
-  * `minify` -- Not need to override. Remove unnecesary files or folders and strip binary files generated
+  * `initialize`: Can be overridden. Will prepare environment variables and configuration options for the entire workflow
+  * `cleanup`: Not need to override. Will remove files from previous builds if found
+  * `extract`: Not need to override. Will extract the source tarball
+  * `copyExtraFiles`: Not need to override. Will copy extra files defined in `stack.json` (explained at the end of the document)
+  * `patch`: Not need to override. Will apply the patch specified in `stack.json` (explained at the end of the document)
+  * `postExtract`: Can be overridden. Common tasks that execute after extract
+  * `build`: Can be overridden. Contain build instructions
+  * `postBuild`: Can be overridden. Common tasks that execute after the build
+  * `install`: Can be overridden. Copy the compiled files to the right directory
+  * `fulfillLicenseRequirements`: Not need to override. If the license information is defined it checks if it is available in the source code and copies it in the component prefix in order to be included in the resulting tarball
+  * `postInstall`: Can be overridden. Common tasks that execute after the install
+  * `minify`: Not need to override. Remove unnecesary files or folders and strip binary files generated
 
 ### Component
 
@@ -238,13 +241,11 @@ Generic interface for components that are meant to be compiled. It sets up the e
 
 Interface for components that are compiled using a Makefile. This class will modify the common methods adapting them to the most common hooks of a Makefile. This is the schema of the methods executed:
 
-```
-build()
-  configure() -- Execute the `configure` script of the component setting by default as prefix the generic prefix (setted in the main configuration) + the ID of the component. The options to pass to the `configure` script can be modified redefining the `configureOptions` method (see the section bellow for more details).
-  make() -- Call the `make` Unix command. By default it will auto-detect the number of CPUs available and adjust the number of parallel jobs to run. This value can be configured as well in the Blacksmith configuration (compilation.maxParallelJobs).
-install()
-  make(install) - Call the `make` Unix command with the argument 'install'
-```
+* `build()`
+  * `configure()`: Execute the `configure` script of the component setting by default as prefix the generic prefix (setted in the main configuration) + the ID of the component. The options to pass to the `configure` script can be modified redefining the `configureOptions` method (see the section below for more details).
+  * `make()`: Call the `make` Unix command. By default it will auto-detect the number of CPUs available and adjust the number of parallel jobs to run. This value can be configured as well in the Blacksmith configuration (compilation.maxParallelJobs).
+* `install()`
+  * `make(install)` - Call the `make` Unix command with the argument 'install'
 
 Every method can be overridden or recalled with `super` to set up specific configurations or build commands.
 
@@ -252,7 +253,7 @@ Every method can be overridden or recalled with `super` to set up specific confi
 
 This class behaves the same as `MakeComponent` but the default prefix path will be `<conf.prefix>/common` as libraries would likely share the same prefix.
 
-### Example
+#### Example
 
 ```javascript
 'use strict';
@@ -267,8 +268,6 @@ module.exports = zlib;
 ```
 
 As explained before, `zlib` extends from `Library` so it will be a component compiled through a Makefile setting as prefix <conf.prefix>/common`. In this case we modify the `configureOptions` method to include the flag `--shared` when running the `configure` script.
-
-### configureOptions
 
 As we mentioned, the method `configureOptions` will be used to define the different options to pass to the `configure` script of the component we are compiling. There will be cases in which a component needs to set a configuration option pointing to other component directory. In this situation the method `populateFlagsFromDependencies` become handy. Using this method you can obtain the different paths that other components define. This would be an example:
 
@@ -332,6 +331,79 @@ In this example we are installing two different types of build dependencies:
    - (Optional) Any environment variable that is required to be set.
 
 In the example above we are installing the system package 'zlib1g-dev', downloading the binary of GO and adding it to the system PATH.
+
+## Extra compilation classes
+
+In addition to the Blacksmith core classes, the package [blacksmith-extra-component-types](https://github.com/bitnami/blacksmith-extra-component-types) adds additional classes for several use cases:
+
+  * `GoProject`
+  * `JavaApplication`
+  * `NodeApplication`
+  * `PhpApplication`
+  * `RubyApplication`
+
+### GoProject
+
+This class extends MakeComponent and is used for building Go applications. The following methods are added or redefined:
+
+* `buildDependencies()`: Will download and extract Go in the /usr/local folder. It will also download any Go dependency set in the goBuildDependencies method.
+* `goBuildDependencies()`: Returns a list of Go Dependencies to be downloaded in the buildDependencies method.
+* `goVersion()`: Go Version to download in the buildDependencies method. Will use the latest stable version available by default.
+* `goPath()`: Returns the Go Path to be set in the GOPATH environment variable.
+* `goBinaryPath()`: Returns the path to the Go binary folder to be set in the PATH environment variable.
+* `goImportPrefix()`: Name of the Go import. Used to define the source directory
+* `srcDir()`: defaults the source folder to goPath()/src/goImportPrefix()
+* `getExportableEnvironmentVariables()`: Returns the `PATH` and `GOPATH` environment variables to be used with functions such as `runProgram`.
+* `configure()`: Empty method.
+
+### JavaApplication
+
+This class extends MakeComponent and is used for building Java applications. The following methods are added or redefined:
+
+* `buildDepencies()`: Will download and install Java, Maven and Ant.
+* `javaVersion()`: Sets the Java version to download in the buildDependencies method. Defaults to Java 11
+* `mavenVersion()`: Sets the Maven version to download in the buildDependencies method. Defaults to 3.6.3.
+* `antVersion()`: Sets the Ant version to download in the buildDependencies method. Defaults to 1.10.9.
+* `configure()`: Empty method
+
+### NodeApplication
+
+This class extends CompilableComponent and is used for building Node.js applications. The following methods are added or redefined:
+
+* `buildDependencies()`: Will download Node.js and its system dependencies.
+* `nodeVersion()`: Sets the Node.js version to download in the buildDependencies method. Defaults to Node 10.
+* `build()`: Copies the source files to the installation prefix.
+* `additionalModules()`: List of extra npm modules necessary for the application to work. Defaults to an empty array.
+* `install()`: Runs `npm install --production --no-optional`, together with the list of extra modules defined in `additionalModules`.
+
+### PhpApplication
+
+This class extends CompiledComponent and is used for building PHP applications. The following methods are added or redefined:
+
+* `buildDependencies()`: Will download PHP and its system dependencies.
+* `phpVersion()`: Set the PHP version to download in the buildDependencies method. Defaults to PHP 7.3.
+* `composerInstallParameters()`: Installation parameters to pass to the `composer` command.
+* `install()`: Run `php composer install`, only if there is a `composer.json` file.
+
+### RubyApplication
+
+This class extends CompilableComponent and is used for building Ruby applications. The following methods are added or redefined:
+
+* `buildDependencies()`: Will download Ruby and its system components.
+* `rubyVersion()`: Sets the Ruby version to download in the buildDependencies method. Defaults to Ruby 2.4.
+* `build()`: Copies the source files to the installation prefix.
+* `getEnvVariables()`:  Returns the `LDFLAGS` variable (setting `-Wl` and `-rpath`). Can be used with functions such as `runProgram`.
+* `additionalGems()`: List of extra Ruby gems to be downloaded when building the application. Defaults to empty array.
+* `install()`: Runs `gem install {{additionalGems()}}`, bundle install --binstubs --no-deployment` and `bundle install --binstubs --deployment --path vendor/bundle`. By default it will also install Phusion Passenger but can be disabled.
+* `minify()`: It will delete everything under the `log` and `vendor/bundle/ruby/*/cache` folders. It will also delete any precompiled binaries for `darwin`, `freebsd` and `i686` architectures.
+
+# Artifacts output folder
+
+In the `/tmp/blacksmith-output/<build-id>/artifacts` folder you can find the generated artifacts by Blacksmith. The following content can be found.
+
+- `build.json`: Contains all the information about the build, such as the list of components (under the `artifacts` section), the system packages used at build time (under the `buildTimePackages` section) and the system packages that will be required at runtime (under the `systemRuntimeDependencies` section). The latter is especially important when using the generated artifact inside a container.
+- `components/`: Contains each compiled component in the recipe.
+- `<artifact-name>.tar.gz`: Tarball with the resulting compilation. Contains all the built binaries availble in the `components/` subfolder.
 
 # Examples
 ## Building NGINX compiling its dependencies
