@@ -222,6 +222,7 @@ All the classes will execute the following methods in order (they can be overrid
   * `postBuild`: Can be overridden. Common tasks that execute after the build
   * `install`: Can be overridden. Copy the compiled files to the right directory
   * `fulfillLicenseRequirements`: Not need to override. If the license information is defined it checks if it is available in the source code and copies it in the component prefix in order to be included in the resulting tarball
+  * `licenseFilename`: Not need to override. Set the name for the license file generated in `fulfillLicenseRequirements`.
   * `postInstall`: Can be overridden. Common tasks that execute after the install
   * `minify`: Not need to override. Remove unnecesary files or folders and strip binary files generated
 
