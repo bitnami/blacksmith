@@ -35,7 +35,7 @@
     "minimist": "^1.2.0",
     "mocha": "^3.0.2",
     "nock": "^8.0.0",
-    "sinon": "^9.0.0"
+    "sinon": "^10.0.0"
   },
   "scripts": {
     "install-runtime": "gulp install-node",
