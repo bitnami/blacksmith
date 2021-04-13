@@ -20,9 +20,6 @@
     "tarball-utils": "bitnami/node-tarball-utils#v3.0.4",
     "version-utils": "bitnami/node-version-utils#v2.0.1"
   },
-  "optionalDependencies": {
-    "anvil-client": "0.3.0"
-  },
   "devDependencies": {
     "bitnami-gulp-common-tasks": "bitnami/gulp-common-tasks#v2.0.4",
     "chai": "^4.2.0",
