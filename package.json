@@ -37,8 +37,9 @@
   "scripts": {
     "install-runtime": "gulp install-node",
     "bundle": "gulp bundle",
-    "lint": "gulp lint",
     "test": "gulp test",
+    "lint": "gulp lint",
+    "cpd": "gulp cpd",
     "ci-test": "gulp ci-test",
     "ci-lint": "gulp ci-lint",
     "ci-cpd": "gulp ci-cpd",
