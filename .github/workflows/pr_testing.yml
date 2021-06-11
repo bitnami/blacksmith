@@ -51,7 +51,7 @@ jobs:
         run: echo "::set-output name=version::$(echo v$(jq -r .version package.json))"
         id: version
       - name: Get metadata from s3
-        run: aws s3 cp metadata ${{ secrets.BUILD_S3_PATH }}/metadata .
+        run: aws s3 cp ${{ secrets.BUILD_S3_PATH }}/metadata . --dryrun
       - name: Define s3ConfigPath
         run: echo "::set-output name=s3ConfigPath::$(echo "${{ secrets.BUILD_S3_PATH }}/config/${{ steps.version.outputs.version }}"/config.json)"
         id: s3ConfigPath
