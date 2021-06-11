@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.org/bitnami/blacksmith.svg?branch=master)](http://travis-ci.org/bitnami/blacksmith)
+[![Build Status](https://github.com/bitnami/blacksmith/actions/workflows/main.yml/badge.svg)](https://github.com/bitnami/blacksmith/actions/workflows/main.yml)
 
 # Blacksmith
 
