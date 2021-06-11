@@ -45,6 +45,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-2
 
       - name: Check version
         run: echo "::set-output name=version::$(echo v$(jq -r .version package.json))"
@@ -61,7 +62,6 @@ jobs:
           CONFIG_JSON: ${{secrets.CONFIG_JSON}}
       - name: Upload configuration
         run: aws s3 cp config.json ${{ steps.s3ConfigPath.outputs.s3ConfigPath }} --dryrun
-        run: s3cmd --access_key=${{ secrets.S3_ACCESS_KEY }} --secret_key=${{ secrets.S3_SECRET_KEY }} put --dry-run --guess-mime-type config.json ${{ steps.s3ConfigPath.outputs.s3ConfigPath }}
 
       - name: Previous tag
         run: echo "::set-output name=previous_tag::$(git describe --abbrev=0 --tags)"
