@@ -56,7 +56,7 @@ jobs:
         env:
           CONFIG_JSON: ${{secrets.CONFIG_JSON}}
       - name: Define s3ConfigPath
-        run: echo "::set-output name=s3ConfigPath::$(echo "${{ secrets.BUILD_S3_PATH }}/config/${{ steps.version.outputs.version }}"/config.json)"
+        run: echo "::set-output name=s3ConfigPath::$(echo ${{ secrets.BUILD_S3_PATH }}/config/${{ steps.version.outputs.version }}/config.json)"
         id: s3ConfigPath
       # - name: Upload configuration
       #   run: aws s3 cp config.json ${{ steps.s3ConfigPath.outputs.s3ConfigPath }} --dryrun
@@ -66,16 +66,16 @@ jobs:
         with:
           name: blacksmith-linux-x64.tar.gz
       - name: Define artifactName
-        run: echo "::set-output name=artifactName::$(echo "blacksmith-${{ steps.version.outputs.version }}-0-linux-x64.tar.gz")"
+        run: echo "::set-output name=artifactName::$(echo blacksmith-${{ steps.version.outputs.version }}-0-linux-x64.tar.gz)"
         id: artifactName
       - name: Define artifactChecksum
         run: echo "::set-output name=artifactChecksum::$(md5sum blacksmith-linux-x64.tar.gz | awk '{print $1}')"
         id: artifactChecksum
       - name: Define s3path
-        run: echo "::set-output name=s3path::$(echo "${{ secrets.BUILD_S3_PATH }}/releases/${{ steps.artifactName.outputs.artifactName }})"
+        run: echo "::set-output name=s3path::$(echo ${{ secrets.BUILD_S3_PATH }}/releases/${{ steps.artifactName.outputs.artifactName }})"
         id: s3path
       - name: Define s3MetadataPath
-        run: echo "::set-output name=s3MetadataPath::$(echo "${{ secrets.BUILD_S3_PATH }}/metadata)"
+        run: echo "::set-output name=s3MetadataPath::$(echo ${{ secrets.BUILD_S3_PATH }}/metadata)"
         id: s3MetadataPath
 
       - name: List metadata from s3
