@@ -79,7 +79,7 @@ jobs:
         id: s3MetadataPath
 
       - name: List metadata from s3
-        run: aws s3 ls ${{ steps.s3MetadataPath.outputs.s3MetadataPath }}
+        run: aws s3 ls s3://nami-prod/tools/blacksmith/metadata
       # - name: Get metadata from s3
       #   run: aws s3 cp ${{ steps.s3MetadataPath.outputs.s3MetadataPath }} metadata --dryrun
       - name: New metadata
