@@ -52,7 +52,7 @@ describe('Build Manager', () => {
     };
     expect(bm.be.target).to.be.eql(modifiedTarget);
   });
-  it('builds a sample package', () => {
+  it('builds a sample package', function() {
     this.timeout(4000);
     const log = {};
     const test = helpers.createTestEnv();
