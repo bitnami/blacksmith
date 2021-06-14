@@ -17,7 +17,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
-          role-duration-seconds: 300
+          role-duration-seconds: 900
           aws-region: us-east-1
       - name: List metadata from s3
         run: aws s3 ls s3://nami-prod/tools/blacksmith/metadata
