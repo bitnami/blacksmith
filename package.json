@@ -30,7 +30,7 @@
     "eslint-plugin-import": "^2.17.2",
     "gulp": "^3.9.1",
     "minimist": "^1.2.0",
-    "mocha": "^3.0.2",
+    "mocha": "^9.0.0",
     "nock": "^8.0.0",
     "sinon": "^9.0.0"
   },
