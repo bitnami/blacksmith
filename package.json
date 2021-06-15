@@ -21,7 +21,7 @@
     "version-utils": "bitnami/node-version-utils#v2.0.1"
   },
   "devDependencies": {
-    "bitnami-gulp-common-tasks": "bitnami/gulp-common-tasks#v2.0.4",
+    "bitnami-gulp-common-tasks": "bitnami/gulp-common-tasks#v3.0.0",
     "chai": "^4.2.0",
     "chai-fs": "git+https://github.com/bitnami/chai-fs.git",
     "chai-subset": "^1.1.0",
