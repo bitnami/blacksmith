@@ -52,7 +52,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Get version
-        run: echo "::set-output name=version::$(echo v$(jq -r .version package.json))"
+        run: echo "::set-output name=version::$(echo $(jq -r .version package.json))"
         id: version
 
       - name: Create configuration file
@@ -60,7 +60,7 @@ jobs:
         env:
           CONFIG_JSON: ${{secrets.CONFIG_JSON}}
       - name: Define s3ConfigPath
-        run: echo "::set-output name=s3ConfigPath::$(echo ${{ secrets.BUILD_S3_PATH }}/config/${{ steps.version.outputs.version }}/config.json)"
+        run: echo "::set-output name=s3ConfigPath::$(echo ${{ secrets.BUILD_S3_PATH }}/config/${{ steps.version.outputs.version }}-0/config.json)"
         id: s3ConfigPath
       - name: Upload configuration
         run: aws s3 cp config.json ${{ steps.s3ConfigPath.outputs.s3ConfigPath }}
@@ -94,22 +94,19 @@ jobs:
           \"s3Url\": \"${{ steps.s3path.outputs.s3path }}\", \
           \"checksum\": \"${{ steps.artifactChecksum.outputs.artifactChecksum }}\", \
           \"bitnamiConfig\": \"${{ steps.s3ConfigPath.outputs.s3ConfigPath }}\"}" | jq .)]" >> metadata
-      - name: Upload release tarball to s3
-        run: aws s3 cp blacksmith-linux-x64.tar.gz ${{ steps.s3path.outputs.s3path }}
-      - name: Upload updated metadata to s3
-        run: aws s3 cp metadata ${{ steps.s3MetadataPath.outputs.s3MetadataPath }}
 
       - name: Previous tag
         run: echo "::set-output name=previous_tag::$(git describe --abbrev=0 --tags)"
         id: previous_tag
       - name: Tag release
-        if: steps.version.outputs.version > steps.previous_tag.outputs.previous_tag
+        if: 'v'steps.version.outputs.version > steps.previous_tag.outputs.previous_tag
         uses: mathieudutour/github-tag-action@v5.5
         id: new_tag
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{ steps.version.outputs.version }}
+          custom_tag: v${{ steps.version.outputs.version }}
           tag_prefix: ''
+
       - name: Generate changelog
         if: steps.new_tag.outcome == 'success'
         id: changelog
@@ -127,3 +124,10 @@ jobs:
             Release ${{ steps.new_tag.outputs.new_tag }} includes the following commits:
 
             ${{ steps.changelog.outputs.changelog }}
+
+      - name: Upload release tarball to s3
+        if: steps.new_tag.outcome == 'success'
+        run: aws s3 cp blacksmith-linux-x64.tar.gz ${{ steps.s3path.outputs.s3path }}
+      - name: Upload updated metadata to s3
+        if: steps.new_tag.outcome == 'success'
+        run: aws s3 cp metadata ${{ steps.s3MetadataPath.outputs.s3MetadataPath }}
