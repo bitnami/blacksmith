@@ -140,11 +140,11 @@ jobs:
           \"platform\": \"linux-x64\", \
           \"s3Url\": \"${{ steps.s3path.outputs.s3path }}\", \
           \"checksum\": \"${{ steps.artifactChecksum.outputs.artifactChecksum }}\", \
-          \"bitnamiConfig\": \"${{ steps.s3ConfigPath.outputs.s3ConfigPath }}\"}" | jq .)]" >> metadata
+          \"bitnamiConfig\": \"${{ steps.s3ConfigPath.outputs.s3ConfigPath }}\"}" | jq .)]" >> updated_metadata
 
       - name: Upload configuration
         run: aws s3 cp config.json ${{ steps.s3ConfigPath.outputs.s3ConfigPath }}
       - name: Upload release tarball to s3
         run: aws s3 cp blacksmith-linux-x64.tar.gz ${{ steps.s3path.outputs.s3path }}
       - name: Upload updated metadata to s3
-        run: aws s3 cp metadata ${{ steps.s3MetadataPath.outputs.s3MetadataPath }}
+        run: aws s3 cp updated_metadata ${{ steps.s3MetadataPath.outputs.s3MetadataPath }}
