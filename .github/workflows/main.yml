@@ -98,13 +98,15 @@ jobs:
       - name: Previous tag
         run: echo "::set-output name=previous_tag::$(git describe --abbrev=0 --tags)"
         id: previous_tag
-      - name: Tag release
-        if: 'v'steps.version.outputs.version > steps.previous_tag.outputs.previous_tag
-        uses: mathieudutour/github-tag-action@v5.5
+      - name: New tag
+        run: echo "::set-output name=new_tag::$(echo v${{ steps.version.outputs.version }})"
         id: new_tag
+      - name: Tag release
+        if: steps.new_tag.outputs.new_tag > steps.previous_tag.outputs.previous_tag
+        uses: mathieudutour/github-tag-action@v5.5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: v${{ steps.version.outputs.version }}
+          custom_tag: ${{ steps.new_tag.outputs.new_tag }}
           tag_prefix: ''
 
       - name: Generate changelog
