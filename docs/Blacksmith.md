@@ -400,7 +400,6 @@ This class extends CompilableComponent and is used for building Ruby application
 * `additionalGems()`: List of extra Ruby gems to be downloaded when building the application. Defaults to empty array.
 * `install()`: Runs `gem install {{additionalGems()}}`, bundle install --binstubs --no-deployment` and `bundle install --binstubs --deployment --path vendor/bundle`. By default it will also install Phusion Passenger but can be disabled.
 * `minify()`: It will delete everything under the `log` and `vendor/bundle/ruby/*/cache` folders. It will also delete any precompiled binaries for `darwin`, `freebsd` and `i686` architectures.
-* `depsDir()`: defaults the dependencies folder to `ruby/lib/ruby/gems/*/gems` and `vendor/bundle/ruby/*/gems`.
 
 # Artifacts output folder
 
