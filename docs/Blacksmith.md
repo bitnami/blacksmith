@@ -224,6 +224,7 @@ All the classes will execute the following methods in order (they can be overrid
   * `fulfillLicenseRequirements`: Not need to override. If the license information is defined it checks if it is available in the source code and copies it in the component prefix in order to be included in the resulting tarball
   * `licenseFilename`: Not need to override. Set the name for the license file generated in `fulfillLicenseRequirements`.
   * `postInstall`: Can be overridden. Common tasks that execute after the install
+  * `copyComponentsWithDependencies`: Not need to override. Copy source code and dependencies to components-with-dependencies folder.
   * `minify`: Not need to override. Remove unnecesary files or folders and strip binary files generated
 
 ### Component
@@ -354,6 +355,7 @@ This class extends MakeComponent and is used for building Go applications. The f
 * `goBinaryPath()`: Returns the path to the Go binary folder to be set in the PATH environment variable.
 * `goImportPrefix()`: Name of the Go import. Used to define the source directory
 * `srcDir()`: defaults the source folder to goPath()/src/goImportPrefix()
+* `depsDir()`: defaults the dependencies folder to `go-app-scan-config`.
 * `getExportableEnvironmentVariables()`: Returns the `PATH` and `GOPATH` environment variables to be used with functions such as `runProgram`.
 * `configure()`: Empty method.
 
@@ -376,6 +378,7 @@ This class extends CompilableComponent and is used for building Node.js applicat
 * `build()`: Copies the source files to the installation prefix.
 * `additionalModules()`: List of extra npm modules necessary for the application to work. Defaults to an empty array.
 * `install()`: Runs `npm install --production --no-optional`, together with the list of extra modules defined in `additionalModules`.
+* `depsDir()`: defaults the dependencies folder to `node/lib/node_modules/<component.id>/node_modules` and `node_modules`.
 
 ### PhpApplication
 
