@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "blacksmith-extra-component-types": "bitnami/blacksmith-extra-component-types#v0.0.66",
-    "cmd-parser": "^0.1.0",
+    "cmd-parser": "^1.0.0",
     "common-utils": "bitnami/node-common-utils#v2.2.0",
     "compilation-utils": "bitnami/node-compilation-utils#v1.0.4",
     "docker-utils": "bitnami/node-docker-utils#v3.3.0",
