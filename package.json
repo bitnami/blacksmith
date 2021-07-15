@@ -26,7 +26,7 @@
     "chai-fs": "git+https://github.com/bitnami/chai-fs.git",
     "chai-subset": "^1.1.0",
     "eslint": "^6.8.0",
-    "eslint-config-bitnami": "bitnami/eslint-config-bitnami#v1.0.0",
+    "eslint-config-bitnami": "bitnami/eslint-config-bitnami#v2.0.0",
     "eslint-plugin-import": "^2.17.2",
     "gulp": "^3.9.1",
     "minimist": "^1.2.0",
